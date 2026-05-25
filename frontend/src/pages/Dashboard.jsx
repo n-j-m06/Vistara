@@ -479,6 +479,19 @@ export default function Dashboard() {
       <div className="fixed top-6 right-6 z-50 flex gap-3">
 
         <button
+  onClick={() =>
+    navigate("/admin")
+  }
+  className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border shadow-lg transition-all duration-500 ${
+    darkMode
+      ? "bg-emerald-500/20 border-emerald-400/20 text-white"
+      : "bg-emerald-100 border-emerald-200 text-emerald-700"
+  }`}
+>
+  Admin
+</button>
+
+        <button
           onClick={toggleMusic}
           className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border shadow-lg transition-all duration-500 ${
             darkMode

@@ -7,6 +7,7 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import StatePage from "./pages/StatePage";
+import Admin from "./pages/Admin";
 
 function App() {
 
@@ -29,6 +30,11 @@ function App() {
         <Route
           path="/state/:stateId"
           element={<StatePage />}
+        />
+
+        <Route
+        path="/admin"
+        element={<Admin />}
         />
 
       </Routes>

@@ -1,5 +1,6 @@
 {
   "name": "vistara-backend",
+  "type": "module",
   "version": "1.0.0",
   "description": "Vistara Tourism Backend",
   "main": "server.js",
