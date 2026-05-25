@@ -1,4 +1,4 @@
-# 🇮🇳 Vistara — Explore India, Experience Infinity
+# Vistara — Explore India, Experience Infinity
 
 Vistara is a cinematic full-stack tourism discovery platform designed to digitally showcase the beauty, culture, heritage, spirituality, and diversity of India through an immersive modern web experience.
 
