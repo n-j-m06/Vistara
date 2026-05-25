@@ -79,43 +79,49 @@ const [playing, setPlaying] =
 </button>
 
       {/* Hero Section */}
-      <div
-        className={`relative h-[75vh] bg-gradient-to-r ${state.gradient} flex items-center justify-center`}
-      >
+      <div className="relative h-[80vh] overflow-hidden">
 
-        <div className="absolute inset-0 bg-black/20" />
+  {/* Background Image */}
+  <img
+    src={state.image}
+    alt={state.name}
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 50,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          className="relative z-10 text-center text-white px-6"
-        >
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/45" />
 
-          <div className="text-8xl">
-            {state.emoji}
-          </div>
+  {/* Content */}
+  <motion.div
+    initial={{
+      opacity: 0,
+      y: 50,
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+    }}
+    transition={{
+      duration: 1,
+    }}
+    className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-6"
+  >
 
-          <h1 className="mt-6 text-7xl font-black">
-            {state.name}
-          </h1>
+    <div className="text-8xl">
+      {state.emoji}
+    </div>
 
-          <p className="mt-5 text-3xl font-light">
-            {state.hero}
-          </p>
+    <h1 className="mt-6 text-7xl font-black">
+      {state.name}
+    </h1>
 
-        </motion.div>
+    <p className="mt-5 text-3xl font-light">
+      {state.hero}
+    </p>
 
-      </div>
+  </motion.div>
 
+</div>
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-8 py-20">
 

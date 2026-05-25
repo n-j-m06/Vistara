@@ -1,9 +1,28 @@
+import haryanaImg from "../assets/haryana.png";
+
+import karnatakaImg from "../assets/karnataka.png";
+
+import madhyapradeshImg from "../assets/madhyapradesh.png";
+
+import odishaImg from "../assets/odisha.png";
+
+import punjabImg from "../assets/punjab.png";
+
+import tamilnaduImg from "../assets/tamilnadu.png";
+
+import jammukashmirImg from "../assets/jammukashmir.png";
+
+import chandigarhImg from "../assets/chandigarh.png";
+
+
+
 const statesData = {
 
   andhrapradesh: {
     name: "Andhra Pradesh",
     hero: "Land of Temples & Coastlines",
     emoji: "🏝️",
+     image: haryanaImg,
     description:
       "Andhra Pradesh is known for its beautiful temples, long coastline, spicy cuisine, and cultural richness.",
     bestTime: "October to March",
@@ -29,6 +48,8 @@ const statesData = {
     name: "Arunachal Pradesh",
     hero: "The Land of Dawn-Lit Mountains",
     emoji: "🏔️",
+    image:
+    "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23",
     description:
       "Arunachal Pradesh offers stunning mountains, monasteries, rivers, and untouched natural beauty.",
     bestTime: "October to April",
@@ -53,6 +74,8 @@ const statesData = {
     name: "Assam",
     hero: "Tea Gardens & Wildlife",
     emoji: "🍵",
+     image:
+    "https://images.unsplash.com/photo-1598091383021-15ddea10925d",
     description:
       "Assam is famous for tea estates, wildlife sanctuaries, and the mighty Brahmaputra river.",
     bestTime: "October to April",
@@ -77,6 +100,8 @@ const statesData = {
     name: "Bihar",
     hero: "Ancient Spiritual Heritage",
     emoji: "🛕",
+     image:
+    "https://images.unsplash.com/photo-1561361513-2d000a50f0dc",
     description:
       "Bihar is home to ancient universities, Buddhist pilgrimage sites, and rich historical heritage.",
     bestTime: "October to March",
@@ -100,6 +125,8 @@ const statesData = {
     name: "Chhattisgarh",
     hero: "Forests & Waterfalls",
     emoji: "🌳",
+     image:
+    "https://images.unsplash.com/photo-1622308644420-b20142dc993c",
     description:
       "Chhattisgarh is filled with dense forests, waterfalls, caves, and tribal heritage.",
     bestTime: "October to February",
@@ -122,6 +149,8 @@ const statesData = {
     name: "Goa",
     hero: "Beach Paradise",
     emoji: "🏖️",
+     image:
+    "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2",
     description:
       "Goa offers beaches, nightlife, Portuguese heritage, and vibrant tourism experiences.",
     bestTime: "November to February",
@@ -145,6 +174,8 @@ const statesData = {
     name: "Gujarat",
     hero: "Land of Lions & Heritage",
     emoji: "🦁",
+      image:
+    "https://tse4.mm.bing.net/th/id/OIP.cG80nvoi_BjpZk6Xt104swHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
     description:
       "Gujarat blends wildlife, white deserts, temples, and vibrant culture.",
     bestTime: "November to February",
@@ -168,6 +199,7 @@ const statesData = {
     name: "Haryana",
     hero: "Tradition & Agriculture",
     emoji: "🌾",
+     image: haryanaImg,
     description:
       "Haryana is known for agriculture, history, and rich North Indian traditions.",
     bestTime: "October to March",
@@ -190,6 +222,8 @@ const statesData = {
     name: "Himachal Pradesh",
     hero: "Himalayan Escape",
     emoji: "❄️",
+     image:
+    "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23",
     description:
       "Himachal Pradesh is famous for snowy mountains, hill stations, and adventure tourism.",
     bestTime: "March to June",
@@ -213,6 +247,8 @@ const statesData = {
     name: "Jharkhand",
     hero: "Forests & Tribal Beauty",
     emoji: "🌲",
+    image:
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
     description:
       "Jharkhand is rich in forests, waterfalls, minerals, and tribal culture.",
     bestTime: "October to March",
@@ -235,6 +271,7 @@ const statesData = {
     name: "Karnataka",
     hero: "Technology Meets Nature",
     emoji: "🌿",
+    image: karnatakaImg,
     description:
       "Karnataka combines modern cities, heritage architecture, coffee plantations, and beaches.",
     bestTime: "October to March",
@@ -259,6 +296,8 @@ const statesData = {
     name: "Kerala",
     hero: "God's Own Country",
     emoji: "🌴",
+     image:
+    "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944",
     description:
       "Kerala is renowned for backwaters, ayurveda, beaches, greenery, and cultural richness.",
     bestTime: "September to March",
@@ -284,6 +323,7 @@ const statesData = {
     name: "Madhya Pradesh",
     hero: "Heart of Incredible India",
     emoji: "🐅",
+    image: madhyapradeshImg,
     description:
       "Madhya Pradesh is famous for wildlife reserves, temples, and historical monuments.",
     bestTime: "October to March",
@@ -307,6 +347,8 @@ const statesData = {
     name: "Maharashtra",
     hero: "Gateway to Dreams",
     emoji: "🌆",
+      image:
+    "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7",
     description:
       "Maharashtra offers bustling cities, forts, beaches, and Western Ghats.",
     bestTime: "October to February",
@@ -330,6 +372,7 @@ const statesData = {
     name: "Tamil Nadu",
     hero: "Land of Temples",
     emoji: "🛕",
+     image: tamilnaduImg,
     description:
       "Tamil Nadu is known for Dravidian temples, beaches, and classical arts.",
     bestTime: "October to March",
@@ -355,6 +398,8 @@ const statesData = {
     name: "Telangana",
     hero: "History Meets Innovation",
     emoji: "💎",
+  image:
+    "https://images.unsplash.com/photo-1599661046289-e31897846e41",
     description:
       "Telangana blends historical monuments with modern technology and culture.",
     bestTime: "October to February",
@@ -377,6 +422,8 @@ const statesData = {
     name: "West Bengal",
     hero: "Culture & Literature",
     emoji: "🎭",
+     image:
+    "https://images.unsplash.com/photo-1558431382-27e303142255",
     description:
       "West Bengal is known for literature, art, sweets, and colonial architecture.",
     bestTime: "October to March",
@@ -400,6 +447,8 @@ const statesData = {
   name: "Manipur",
   hero: "Jewel of Northeast India",
   emoji: "🌸",
+  image:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
   description:
     "Manipur is known for its scenic lakes, lush hills, rich traditions, and vibrant dance culture.",
   bestTime: "October to March",
@@ -424,6 +473,8 @@ meghalaya: {
   name: "Meghalaya",
   hero: "Abode of Clouds",
   emoji: "🌧️",
+  image:
+    "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86",
   description:
     "Meghalaya is famous for waterfalls, living root bridges, caves, and misty landscapes.",
   bestTime: "October to April",
@@ -447,6 +498,8 @@ mizoram: {
   name: "Mizoram",
   hero: "Land of Rolling Hills",
   emoji: "⛰️",
+   image:
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
   description:
     "Mizoram offers peaceful landscapes, hills, tribal traditions, and scenic beauty.",
   bestTime: "October to March",
@@ -470,6 +523,8 @@ nagaland: {
   name: "Nagaland",
   hero: "Land of Festivals",
   emoji: "🪶",
+    image:
+    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
   description:
     "Nagaland is known for mountains, tribal heritage, and colorful festivals.",
   bestTime: "October to May",
@@ -493,6 +548,7 @@ odisha: {
   name: "Odisha",
   hero: "Soul of Incredible India",
   emoji: "🛕",
+    image: odishaImg,
   description:
     "Odisha is famous for temples, beaches, tribal culture, and classical dance.",
   bestTime: "October to February",
@@ -516,6 +572,7 @@ punjab: {
   name: "Punjab",
   hero: "Land of Five Rivers",
   emoji: "🌾",
+   image: punjabImg,
   description:
     "Punjab is known for its vibrant culture, food, agriculture, and spirituality.",
   bestTime: "October to March",
@@ -540,6 +597,8 @@ rajasthan: {
   name: "Rajasthan",
   hero: "Land of Kings",
   emoji: "🏰",
+  image:
+    "https://images.unsplash.com/photo-1477587458883-47145ed94245",
   description:
     "Rajasthan is famous for majestic forts, palaces, deserts, and royal heritage.",
   bestTime: "October to March",
@@ -564,6 +623,8 @@ sikkim: {
   name: "Sikkim",
   hero: "Himalayan Paradise",
   emoji: "🏔️",
+   image:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
   description:
     "Sikkim is known for snow-covered mountains, monasteries, and serene beauty.",
   bestTime: "March to June",
@@ -587,6 +648,8 @@ tripura: {
   name: "Tripura",
   hero: "Hidden Gem of Northeast",
   emoji: "🌿",
+   image:
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
   description:
     "Tripura offers palaces, lakes, temples, and lush greenery.",
   bestTime: "October to March",
@@ -610,6 +673,8 @@ uttarpradesh: {
   name: "Uttar Pradesh",
   hero: "Heart of Indian Spirituality",
   emoji: "🕌",
+    image:
+    "https://images.unsplash.com/photo-1564507592333-c60657eea523",
   description:
     "Uttar Pradesh is home to the Taj Mahal, holy cities, and Mughal heritage.",
   bestTime: "October to March",
@@ -633,6 +698,8 @@ uttarakhand: {
   name: "Uttarakhand",
   hero: "Land of Gods",
   emoji: "🧘",
+    image:
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
   description:
     "Uttarakhand is famous for Himalayan beauty, yoga, and spiritual destinations.",
   bestTime: "March to June",
@@ -656,6 +723,8 @@ delhi: {
   name: "Delhi",
   hero: "Capital of India",
   emoji: "🏛️",
+   image:
+    "https://images.unsplash.com/photo-1587474260584-136574528ed5",
   description:
     "Delhi blends Mughal history, modern culture, street food, and iconic monuments.",
   bestTime: "October to March",
@@ -679,6 +748,7 @@ jammukashmir: {
   name: "Jammu & Kashmir",
   hero: "Paradise on Earth",
   emoji: "🏔️",
+ image: jammukashmirImg,
   description:
     "Jammu & Kashmir is famous for valleys, snow mountains, lakes, and breathtaking beauty.",
   bestTime: "March to October",
@@ -702,6 +772,8 @@ ladakh: {
   name: "Ladakh",
   hero: "Land of High Passes",
   emoji: "🏍️",
+    image:
+    "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23",
   description:
     "Ladakh is known for adventure tourism, monasteries, and breathtaking landscapes.",
   bestTime: "May to September",
@@ -725,6 +797,8 @@ puducherry: {
   name: "Puducherry",
   hero: "French Riviera of the East",
   emoji: "🌊",
+   image:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   description:
     "Puducherry blends French architecture, beaches, spirituality, and cafes.",
   bestTime: "October to March",
@@ -748,6 +822,8 @@ andamannicobar: {
   name: "Andaman & Nicobar Islands",
   hero: "Tropical Island Paradise",
   emoji: "🏝️",
+   image:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   description:
     "The islands are known for crystal-clear waters, coral reefs, and marine life.",
   bestTime: "October to May",
@@ -771,6 +847,8 @@ lakshadweep: {
   name: "Lakshadweep",
   hero: "Coral Paradise",
   emoji: "🌊",
+  image:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   description:
     "Lakshadweep is famous for coral reefs, lagoons, and untouched beaches.",
   bestTime: "October to May",
@@ -794,6 +872,7 @@ chandigarh: {
   name: "Chandigarh",
   hero: "The City Beautiful",
   emoji: "🏙️",
+  image: chandigarhImg,
   description:
     "Chandigarh is known for modern architecture, gardens, and urban planning.",
   bestTime: "October to March",
