@@ -1,164 +1,505 @@
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import {
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  useRef,
+  useState,
+  useEffect,
+} from "react";
+
 import fluteMusic from "../assets/flute.mp3";
 
-const states = [
-
-  { name: "Andhra Pradesh", emoji: "🏝️", tagline: "Temples • Beaches" },
-  { name: "Arunachal Pradesh", emoji: "🏔️", tagline: "Mountains • Monasteries" },
-  { name: "Assam", emoji: "🍵", tagline: "Tea Gardens • Wildlife" },
-  { name: "Bihar", emoji: "🛕", tagline: "Ancient Heritage • Buddhism" },
-  { name: "Chhattisgarh", emoji: "🌳", tagline: "Forests • Waterfalls" },
-  { name: "Goa", emoji: "🏖️", tagline: "Beaches • Nightlife" },
-  { name: "Gujarat", emoji: "🦁", tagline: "White Desert • Heritage" },
-  { name: "Haryana", emoji: "🌾", tagline: "Culture • Agriculture" },
-  { name: "Himachal Pradesh", emoji: "❄️", tagline: "Snow • Hill Stations" },
-  { name: "Jharkhand", emoji: "🌲", tagline: "Forests • Tribal Culture" },
-  { name: "Karnataka", emoji: "🌿", tagline: "Nature • Technology" },
-  { name: "Kerala", emoji: "🌴", tagline: "Backwaters • Ayurveda" },
-  { name: "Madhya Pradesh", emoji: "🐅", tagline: "Wildlife • Temples" },
-  { name: "Maharashtra", emoji: "🌆", tagline: "Mumbai • Western Ghats" },
-  { name: "Manipur", emoji: "🌸", tagline: "Lakes • Culture" },
-  { name: "Meghalaya", emoji: "🌧️", tagline: "Clouds • Waterfalls" },
-  { name: "Mizoram", emoji: "⛰️", tagline: "Hills • Traditions" },
-  { name: "Nagaland", emoji: "🪶", tagline: "Festivals • Mountains" },
-  { name: "Odisha", emoji: "🛕", tagline: "Temples • Beaches" },
-  { name: "Punjab", emoji: "🌾", tagline: "Culture • Food" },
-  { name: "Rajasthan", emoji: "🏰", tagline: "Forts • Desert Culture" },
-  { name: "Sikkim", emoji: "🏔️", tagline: "Mountains • Monasteries" },
-  { name: "Tamil Nadu", emoji: "🛕", tagline: "Temples • Heritage" },
-  { name: "Telangana", emoji: "💎", tagline: "History • Technology" },
-  { name: "Tripura", emoji: "🌿", tagline: "Nature • Palaces" },
-  { name: "Uttar Pradesh", emoji: "🕌", tagline: "Taj Mahal • Spirituality" },
-  { name: "Uttarakhand", emoji: "🧘", tagline: "Yoga • Himalayas" },
-  { name: "West Bengal", emoji: "🎭", tagline: "Culture • Literature" },
-
-  // Union Territories
-  { name: "Delhi", emoji: "🏛️", tagline: "Capital • Heritage" },
-  { name: "Jammu & Kashmir", emoji: "🏔️", tagline: "Paradise • Valleys" },
-  { name: "Ladakh", emoji: "🏍️", tagline: "Mountains • Adventure" },
-  { name: "Puducherry", emoji: "🌊", tagline: "French Culture • Beaches" },
-  { name: "Andaman & Nicobar", emoji: "🏝️", tagline: "Islands • Coral Reefs" },
-  { name: "Lakshadweep", emoji: "🌊", tagline: "Beaches • Marine Life" },
-  { name: "Chandigarh", emoji: "🏙️", tagline: "Modern Architecture" },
-
-];
-
 export default function Dashboard() {
+
   const navigate = useNavigate();
 
   const audioRef = useRef(null);
 
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] =
+    useState(false);
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] =
+    useState(true);
+
+  const [search, setSearch] =
+    useState("");
+
+  const [
+    activeCategory,
+    setActiveCategory,
+  ] = useState("All");
 
   useEffect(() => {
 
     const savedTheme =
-      localStorage.getItem("vistaraTheme");
+      localStorage.getItem(
+        "vistaraTheme"
+      );
 
-    if (savedTheme === "dark") {
-      setDarkMode(true);
+    if (savedTheme === "light") {
+
+      setDarkMode(false);
+
     }
 
   }, []);
 
   useEffect(() => {
 
-  const musicState =
-    localStorage.getItem(
-      "vistaraMusic"
-    );
-
-  if (
-    musicState === "on" &&
-    audioRef.current
-  ) {
-
-    audioRef.current.play();
-
-    setPlaying(true);
-  }
-
-}, []);
-
-  useEffect(() => {
-
     localStorage.setItem(
       "vistaraTheme",
-      darkMode ? "dark" : "light"
+      darkMode
+        ? "dark"
+        : "light"
     );
 
   }, [darkMode]);
 
- const toggleMusic = () => {
+  useEffect(() => {
 
-  if (!audioRef.current) return;
+    const musicState =
+      localStorage.getItem(
+        "vistaraMusic"
+      );
 
-  if (playing) {
+    if (
+      musicState === "on" &&
+      audioRef.current
+    ) {
 
-    audioRef.current.pause();
+      audioRef.current.play();
 
-    localStorage.setItem(
-      "vistaraMusic",
-      "off"
-    );
+      setPlaying(true);
 
-  } else {
+    }
 
-    audioRef.current.play();
+  }, []);
 
-    localStorage.setItem(
-      "vistaraMusic",
-      "on"
-    );
+  const toggleMusic = () => {
 
-  }
+    if (!audioRef.current) return;
 
-  setPlaying(!playing);
-};
+    if (playing) {
+
+      audioRef.current.pause();
+
+      localStorage.setItem(
+        "vistaraMusic",
+        "off"
+      );
+
+    } else {
+
+      audioRef.current.play();
+
+      localStorage.setItem(
+        "vistaraMusic",
+        "on"
+      );
+
+    }
+
+    setPlaying(!playing);
+  };
+
+  const states = [
+
+    {
+      name: "Andhra Pradesh",
+      emoji: "🏝️",
+      tagline: "Temples • Beaches",
+      category: "Spiritual",
+    },
+
+    {
+      name: "Arunachal Pradesh",
+      emoji: "🏔️",
+      tagline:
+        "Mountains • Monasteries",
+      category: "Adventure",
+    },
+
+    {
+      name: "Assam",
+      emoji: "🍵",
+      tagline:
+        "Tea Gardens • Wildlife",
+      category: "Nature",
+    },
+
+    {
+      name: "Bihar",
+      emoji: "🛕",
+      tagline:
+        "Ancient Heritage • Buddhism",
+      category: "Heritage",
+    },
+
+    {
+      name: "Chhattisgarh",
+      emoji: "🌳",
+      tagline:
+        "Forests • Waterfalls",
+      category: "Nature",
+    },
+
+    {
+      name: "Goa",
+      emoji: "🏖️",
+      tagline:
+        "Beaches • Nightlife",
+      category: "Adventure",
+    },
+
+    {
+      name: "Gujarat",
+      emoji: "🦁",
+      tagline:
+        "White Desert • Heritage",
+      category: "Heritage",
+    },
+
+    {
+      name: "Haryana",
+      emoji: "🌾",
+      tagline:
+        "Culture • Agriculture",
+      category: "Heritage",
+    },
+
+    {
+      name: "Himachal Pradesh",
+      emoji: "❄️",
+      tagline:
+        "Snow • Hill Stations",
+      category: "Adventure",
+    },
+
+    {
+      name: "Jharkhand",
+      emoji: "🌲",
+      tagline:
+        "Forests • Tribal Culture",
+      category: "Nature",
+    },
+
+    {
+      name: "Karnataka",
+      emoji: "🌿",
+      tagline:
+        "Nature • Technology",
+      category: "Nature",
+    },
+
+    {
+      name: "Kerala",
+      emoji: "🌴",
+      tagline:
+        "Backwaters • Ayurveda",
+      category: "Nature",
+    },
+
+    {
+      name: "Madhya Pradesh",
+      emoji: "🐅",
+      tagline:
+        "Wildlife • Temples",
+      category: "Heritage",
+    },
+
+    {
+      name: "Maharashtra",
+      emoji: "🌆",
+      tagline:
+        "Mumbai • Western Ghats",
+      category: "Heritage",
+    },
+
+    {
+      name: "Manipur",
+      emoji: "🌸",
+      tagline:
+        "Lakes • Culture",
+      category: "Nature",
+    },
+
+    {
+      name: "Meghalaya",
+      emoji: "🌧️",
+      tagline:
+        "Clouds • Waterfalls",
+      category: "Nature",
+    },
+
+    {
+      name: "Mizoram",
+      emoji: "⛰️",
+      tagline:
+        "Hills • Traditions",
+      category: "Nature",
+    },
+
+    {
+      name: "Nagaland",
+      emoji: "🪶",
+      tagline:
+        "Festivals • Mountains",
+      category: "Adventure",
+    },
+
+    {
+      name: "Odisha",
+      emoji: "🛕",
+      tagline:
+        "Temples • Beaches",
+      category: "Spiritual",
+    },
+
+    {
+      name: "Punjab",
+      emoji: "🌾",
+      tagline:
+        "Culture • Food",
+      category: "Heritage",
+    },
+
+    {
+      name: "Rajasthan",
+      emoji: "🏰",
+      tagline:
+        "Forts • Desert Culture",
+      category: "Heritage",
+    },
+
+    {
+      name: "Sikkim",
+      emoji: "🏔️",
+      tagline:
+        "Mountains • Monasteries",
+      category: "Adventure",
+    },
+
+    {
+      name: "Tamil Nadu",
+      emoji: "🛕",
+      tagline:
+        "Temples • Heritage",
+      category: "Spiritual",
+    },
+
+    {
+      name: "Telangana",
+      emoji: "💎",
+      tagline:
+        "History • Technology",
+      category: "Heritage",
+    },
+
+    {
+      name: "Tripura",
+      emoji: "🌿",
+      tagline:
+        "Nature • Palaces",
+      category: "Nature",
+    },
+
+    {
+      name: "Uttar Pradesh",
+      emoji: "🕌",
+      tagline:
+        "Taj Mahal • Spirituality",
+      category: "Spiritual",
+    },
+
+    {
+      name: "Uttarakhand",
+      emoji: "🧘",
+      tagline:
+        "Yoga • Himalayas",
+      category: "Spiritual",
+    },
+
+    {
+      name: "West Bengal",
+      emoji: "🎭",
+      tagline:
+        "Culture • Literature",
+      category: "Heritage",
+    },
+
+    {
+      name: "Delhi",
+      emoji: "🏛️",
+      tagline:
+        "Capital • Heritage",
+      category: "Heritage",
+    },
+
+    {
+      name: "Jammu & Kashmir",
+      emoji: "🏔️",
+      tagline:
+        "Paradise • Valleys",
+      category: "Nature",
+    },
+
+    {
+      name: "Ladakh",
+      emoji: "🏍️",
+      tagline:
+        "Mountains • Adventure",
+      category: "Adventure",
+    },
+
+    {
+      name: "Puducherry",
+      emoji: "🌊",
+      tagline:
+        "French Culture • Beaches",
+      category: "Heritage",
+    },
+
+    {
+      name: "Andaman & Nicobar",
+      emoji: "🏝️",
+      tagline:
+        "Islands • Coral Reefs",
+      category: "Adventure",
+    },
+
+    {
+      name: "Lakshadweep",
+      emoji: "🌊",
+      tagline:
+        "Beaches • Marine Life",
+      category: "Adventure",
+    },
+
+    {
+      name: "Chandigarh",
+      emoji: "🏙️",
+      tagline:
+        "Modern Architecture",
+      category: "Heritage",
+    },
+
+  ];
+
+  const filteredStates =
+    states.filter((state) => {
+
+      const matchesSearch =
+
+        state.name
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+
+        state.tagline
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
+
+      const matchesCategory =
+
+        activeCategory === "All" ||
+
+        state.category ===
+          activeCategory;
+
+      return (
+        matchesSearch &&
+        matchesCategory
+      );
+    });
+
   return (
 
     <div
-      className={`relative min-h-screen overflow-hidden px-8 py-10 transition-all duration-700 ${
+      className={`relative min-h-screen overflow-hidden transition-all duration-500 ${
         darkMode
-          ? "bg-[#0F172A]"
+          ? "bg-[#020B2D]"
           : "bg-[#FFFDF7]"
       }`}
     >
 
       {/* Audio */}
       <audio ref={audioRef} loop>
-        <source src={fluteMusic} type="audio/mp3" />
+        <source
+          src={fluteMusic}
+          type="audio/mp3"
+        />
       </audio>
 
-      {/* Top Buttons */}
-      <div className="absolute top-6 right-6 z-50 flex gap-3">
+      {/* Floating Leaves */}
+      {[...Array(25)].map((_, index) => (
 
-        {/* Audio Toggle */}
+        <motion.div
+          key={index}
+          initial={{
+            y: -100,
+            x:
+              Math.random() *
+              window.innerWidth,
+            rotate: 0,
+          }}
+          animate={{
+            y: "120vh",
+            x: [
+              Math.random() *
+                window.innerWidth,
+
+              Math.random() *
+                window.innerWidth,
+            ],
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration:
+              12 +
+              Math.random() * 10,
+            repeat: Infinity,
+            delay:
+              Math.random() * 10,
+            ease: "linear",
+          }}
+          className="absolute text-3xl opacity-20"
+        >
+          🍃
+        </motion.div>
+
+      ))}
+
+      {/* Top Buttons */}
+      <div className="fixed top-6 right-6 z-50 flex gap-3">
+
         <button
           onClick={toggleMusic}
-          className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border transition-all duration-500 shadow-lg ${
+          className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border shadow-lg transition-all duration-500 ${
             darkMode
-              ? "bg-white/10 border-white/20 text-white"
+              ? "bg-white/10 border-white/10 text-white"
               : "bg-white/70 border-white/40 text-slate-700"
           }`}
         >
           {playing
-            ? "🔇 Audio Off"
-            : "🎵 Audio"}
+            ? "Mute"
+            : "Audio"}
         </button>
 
-        {/* Theme Toggle */}
         <button
           onClick={() =>
-            setDarkMode(!darkMode)
+            setDarkMode(
+              !darkMode
+            )
           }
-          className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border transition-all duration-500 shadow-lg ${
+          className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border shadow-lg transition-all duration-500 ${
             darkMode
-              ? "bg-white/10 border-white/20 text-white"
+              ? "bg-white/10 border-white/10 text-white"
               : "bg-white/70 border-white/40 text-slate-700"
           }`}
         >
@@ -168,198 +509,165 @@ export default function Dashboard() {
         </button>
 
         <button
-  onClick={() => navigate("/")}
-  className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border transition-all duration-500 shadow-lg ${
-    darkMode
-      ? "bg-red-500/20 border-red-400/20 text-white"
-      : "bg-red-100 border-red-200 text-red-600"
-  }`}
->
-  Logout
-</button>
-
-      </div>
-
-      {/* Background Glow */}
-      <div
-        className={`absolute top-[-200px] left-[-200px] w-[500px] h-[500px] blur-3xl rounded-full ${
-          darkMode
-            ? "bg-orange-500/20"
-            : "bg-orange-200/40"
-        }`}
-      />
-
-      <div
-        className={`absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] blur-3xl rounded-full ${
-          darkMode
-            ? "bg-emerald-500/20"
-            : "bg-emerald-200/40"
-        }`}
-      />
-
-      {/* Falling Leaves */}
-      {[...Array(30)].map((_, i) => (
-
-        <motion.div
-          key={i}
-          initial={{
-            x: `${Math.random() * 100}vw`,
-            y: -200,
-            opacity: 0,
-            rotate: Math.random() * 360,
-          }}
-          animate={{
-            y: "120vh",
-            opacity: [0, 0.2, 0],
-            rotate: [0, 180],
-          }}
-          transition={{
-            duration: 12 + Math.random() * 10,
-            repeat: Infinity,
-            delay: Math.random() * 10,
-            ease: "linear",
-          }}
-          className="absolute text-3xl"
-        >
-          🍃
-        </motion.div>
-
-      ))}
-
-      {/* Header */}
-      <div className="relative z-10 flex items-center justify-between">
-
-        <div>
-
-          <h1
-            className={`text-7xl font-black ${
-              darkMode
-                ? "text-white"
-                : "text-slate-900"
-            }`}
-          >
-            VISTARA
-          </h1>
-
-          <p
-            className={`mt-3 text-xl ${
-              darkMode
-                ? "text-slate-300"
-                : "text-slate-600"
-            }`}
-          >
-            Explore India State by State
-          </p>
-
-        </div>
-
-        <div
-          className={`px-6 py-3 rounded-2xl backdrop-blur-xl border shadow-lg ${
+          onClick={() =>
+            navigate("/")
+          }
+          className={`px-4 py-2 text-sm rounded-xl backdrop-blur-xl border shadow-lg transition-all duration-500 ${
             darkMode
-              ? "bg-white/10 border-white/10 text-white"
-              : "bg-white/70 border-white/40 text-slate-800"
+              ? "bg-red-500/20 border-red-400/20 text-white"
+              : "bg-red-100 border-red-200 text-red-600"
           }`}
         >
-          🇮🇳 Incredible India
-        </div>
+          Logout
+        </button>
 
       </div>
 
-      {/* Hero */}
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 30,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 1,
-        }}
-        className="relative z-10 mt-16 text-center"
-      >
+      {/* Heading */}
+      <div className="relative z-10 text-center pt-24 px-6">
 
-        <h2
-          className={`text-6xl font-black leading-tight ${
+        <motion.h1
+          initial={{
+            opacity: 0,
+            y: -30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          className={`text-6xl md:text-7xl font-black ${
             darkMode
               ? "text-white"
               : "text-slate-900"
           }`}
         >
-
-          Discover The
-          <span className="block bg-gradient-to-r from-orange-500 to-emerald-500 bg-clip-text text-transparent">
-            Soul of India
-          </span>
-
-        </h2>
+          Explore India 🇮🇳
+        </motion.h1>
 
         <p
-          className={`mt-6 text-xl max-w-3xl mx-auto leading-relaxed ${
+          className={`mt-5 text-xl ${
             darkMode
               ? "text-slate-300"
               : "text-slate-600"
           }`}
         >
-          Explore heritage, spirituality, nature,
-          beaches, forts, cuisine, and unforgettable
-          experiences across India.
+          Discover culture,
+          heritage, nature,
+          spirituality & adventure
         </p>
 
-      </motion.div>
+      </div>
 
-      {/* State Cards */}
-      <div className="relative z-10 mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* Search + Filters */}
+      <div className="relative z-10 mt-16 px-6 flex flex-col lg:flex-row gap-5 items-center justify-between max-w-7xl mx-auto">
 
-        {states.map((state, index) => (
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search states, destinations, vibes..."
+          value={search}
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+          className={`w-full lg:w-[450px] px-6 py-4 rounded-2xl outline-none backdrop-blur-xl border shadow-lg ${
+            darkMode
+              ? "bg-white/10 border-white/10 text-white placeholder:text-slate-300"
+              : "bg-white/70 border-white/40 text-slate-700 placeholder:text-slate-500"
+          }`}
+        />
 
-          <motion.div
-            key={state.name}
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: index * 0.05,
-            }}
-            whileHover={{
-              scale: 1.05,
-              y: -10,
-            }}
-            className={`group relative overflow-hidden rounded-[35px] backdrop-blur-2xl border shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-8 cursor-pointer transition-all duration-500 ${
-              darkMode
-                ? "bg-white/5 border-white/10"
-                : "bg-white/50 border-white/40"
-            }`}
-          >
+        {/* Filters */}
+        <div className="flex flex-wrap gap-3">
 
-            {/* Hover Glow */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-orange-200/30 to-emerald-200/30" />
+          {[
+            "All",
+            "Nature",
+            "Heritage",
+            "Spiritual",
+            "Adventure",
+          ].map((category) => (
 
-            <div className="relative z-10">
+            <button
+              key={category}
+              onClick={() =>
+                setActiveCategory(
+                  category
+                )
+              }
+              className={`px-5 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                activeCategory ===
+                category
+
+                  ? "bg-gradient-to-r from-orange-500 to-emerald-500 text-white shadow-lg"
+
+                  : darkMode
+
+                  ? "bg-white/10 text-white border border-white/10"
+
+                  : "bg-white/70 text-slate-700 border border-white/40"
+              }`}
+            >
+              {category}
+            </button>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* Cards */}
+      <div className="relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 py-16 max-w-7xl mx-auto">
+
+        {filteredStates.map(
+          (state, index) => (
+
+            <motion.div
+              key={state.name}
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay:
+                  index * 0.05,
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+              }}
+              className={`rounded-[36px] p-10 backdrop-blur-xl border shadow-xl transition-all duration-500 ${
+                darkMode
+                  ? "bg-white/5 border-white/10"
+                  : "bg-white/60 border-white/30"
+              }`}
+            >
 
               <div className="text-6xl">
                 {state.emoji}
               </div>
 
-              <h3
-                className={`mt-6 text-3xl font-black ${
+              <h2
+                className={`mt-8 text-4xl font-black ${
                   darkMode
                     ? "text-white"
                     : "text-slate-900"
                 }`}
               >
                 {state.name}
-              </h3>
+              </h2>
 
               <p
-                className={`mt-4 leading-relaxed ${
+                className={`mt-4 text-lg ${
                   darkMode
                     ? "text-slate-300"
                     : "text-slate-600"
@@ -369,28 +677,32 @@ export default function Dashboard() {
               </p>
 
               <button
-  onClick={() =>
-    navigate(
-      `/state/${state.name
-        .toLowerCase()
-        .replace(/\s/g, "")
-        .replace(/&/g, "")}`
-    )
-  }
-  className="mt-8 px-5 py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-emerald-500 text-white font-semibold shadow-lg"
->
-  Explore
-</button>
+                onClick={() =>
+                  navigate(
+                    `/state/${state.name
+                      .toLowerCase()
+                      .replace(
+                        /\s/g,
+                        ""
+                      )
+                      .replace(
+                        /&/g,
+                        ""
+                      )}`
+                  )
+                }
+                className="mt-8 px-6 py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-emerald-500 text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+              >
+                Explore
+              </button>
 
-            </div>
+            </motion.div>
 
-          </motion.div>
-
-        ))}
+          )
+        )}
 
       </div>
 
     </div>
-
   );
 }
