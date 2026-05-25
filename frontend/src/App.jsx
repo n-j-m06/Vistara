@@ -5,27 +5,32 @@ import {
 } from "react-router-dom";
 
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
+
   return (
+
     <BrowserRouter>
 
       <Routes>
 
+        {/* Login Page */}
         <Route
           path="/"
           element={<Login />}
         />
 
+        {/* Dashboard */}
         <Route
           path="/home"
-          element={<Home />}
+          element={<Dashboard />}
         />
 
       </Routes>
 
     </BrowserRouter>
+
   );
 }
 
