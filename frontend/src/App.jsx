@@ -6,6 +6,7 @@ import {
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import StatePage from "./pages/StatePage";
 
 function App() {
 
@@ -15,16 +16,19 @@ function App() {
 
       <Routes>
 
-        {/* Login Page */}
         <Route
           path="/"
           element={<Login />}
         />
 
-        {/* Dashboard */}
         <Route
           path="/home"
           element={<Dashboard />}
+        />
+
+        <Route
+          path="/state/:stateId"
+          element={<StatePage />}
         />
 
       </Routes>
