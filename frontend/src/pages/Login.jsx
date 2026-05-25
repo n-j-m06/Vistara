@@ -1,12 +1,60 @@
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import fluteMusic from "../assets/flute.mp3";
 
+import {
+  registerUser,
+  loginUser,
+} from "../services/authService";
+
 export default function Login() {
+
+  const navigate = useNavigate();
+
   const audioRef = useRef(null);
+
   const [playing, setPlaying] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(false);
+
+  const [isSignup, setIsSignup] = useState(false);
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const leaves = ["🍃", "🍂", "🌿"];
+
+  useEffect(() => {
+
+    const savedTheme =
+      localStorage.getItem("vistaraTheme");
+
+    if (savedTheme === "dark") {
+      setDarkMode(true);
+    }
+
+  }, []);
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "vistaraTheme",
+      darkMode ? "dark" : "light"
+    );
+
+  }, [darkMode]);
+
   const toggleMusic = () => {
+
     if (!audioRef.current) return;
 
     if (playing) {
@@ -18,287 +66,511 @@ export default function Login() {
     setPlaying(!playing);
   };
 
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+    setErrors({
+      ...errors,
+      [e.target.name]: "",
+      general: "",
+    });
+  };
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    setErrors({});
+    setSuccessMessage("");
+
+    try {
+
+      if (isSignup) {
+
+        await registerUser(formData);
+
+        setSuccessMessage(
+          "Account created successfully. Please login to continue."
+        );
+
+        setIsSignup(false);
+
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+        });
+
+      } else {
+
+        const response = await loginUser(formData);
+
+        localStorage.setItem(
+          "vistaraUser",
+          JSON.stringify(response.user)
+        );
+
+        navigate("/home");
+      }
+
+    } catch (error) {
+
+      const message =
+        error.response?.data?.message ||
+        "Something went wrong";
+
+      if (
+        message.toLowerCase().includes("email")
+      ) {
+
+        setErrors({
+          email: message,
+        });
+
+      } else if (
+        message.toLowerCase().includes("password")
+      ) {
+
+        setErrors({
+          password: message,
+        });
+
+      } else if (
+        message.toLowerCase().includes("credential")
+      ) {
+
+        setErrors({
+          password: "Invalid email or password",
+        });
+
+      } else {
+
+        setErrors({
+          general: message,
+        });
+
+      }
+
+    }
+  };
+
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#FFFDF7]">
+
+    <div
+      className={`relative min-h-screen overflow-hidden flex items-center justify-center px-6 transition-all duration-700 ${
+        darkMode
+          ? "bg-[#0F172A]"
+          : "bg-[#FFFDF7]"
+      }`}
+    >
 
       {/* Audio */}
       <audio ref={audioRef} loop>
         <source src={fluteMusic} type="audio/mp3" />
       </audio>
 
-      {/* Luxury Saffron Ribbon */}
-      <motion.div
-        animate={{
-          x: [-120, 120, -120],
-          rotate: [-2, 2, -2],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-[-15%] left-[-10%] w-[140%] h-[250px] rounded-full blur-3xl bg-orange-300/40"
-      />
-
-      {/* Ivory Ribbon */}
-      <motion.div
-        animate={{
-          x: [100, -100, 100],
-          rotate: [1, -1, 1],
-        }}
-        transition={{
-          duration: 24,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-[35%] left-[-10%] w-[140%] h-[250px] rounded-full blur-3xl bg-white/80"
-      />
-
-      {/* Emerald Ribbon */}
-      <motion.div
-        animate={{
-          x: [-80, 80, -80],
-          rotate: [-1, 1, -1],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute bottom-[-10%] left-[-10%] w-[140%] h-[250px] rounded-full blur-3xl bg-emerald-300/40"
-      />
-
-      {/* Golden Glow */}
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.15, 0.25, 0.15],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-        }}
-        className="absolute inset-0 flex items-center justify-center"
+      {/* Theme Toggle */}
+      <button
+        onClick={() =>
+          setDarkMode(!darkMode)
+        }
+        className={`absolute top-8 right-8 z-50 px-5 py-3 rounded-2xl backdrop-blur-xl border transition-all duration-500 shadow-lg ${
+          darkMode
+            ? "bg-white/10 border-white/20 text-white"
+            : "bg-white/70 border-white/40 text-slate-700"
+        }`}
       >
-        <div className="w-[600px] h-[600px] rounded-full bg-yellow-300 blur-[140px]" />
-      </motion.div>
+        {darkMode ? "☀ Light" : "🌙 Dark"}
+      </button>
 
-      {/* Decorative Gold Circles */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 80,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="absolute left-[-200px] top-[-200px] w-[500px] h-[500px] border border-yellow-400/20 rounded-full"
+      {/* Floating Glow */}
+      <div
+        className={`absolute top-[-200px] left-[-200px] w-[500px] h-[500px] blur-3xl rounded-full animate-pulse ${
+          darkMode
+            ? "bg-orange-500/20"
+            : "bg-orange-200/40"
+        }`}
       />
 
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{
-          duration: 100,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="absolute right-[-250px] bottom-[-250px] w-[600px] h-[600px] border border-emerald-400/20 rounded-full"
+      <div
+        className={`absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] blur-3xl rounded-full animate-pulse ${
+          darkMode
+            ? "bg-emerald-500/20"
+            : "bg-emerald-200/40"
+        }`}
       />
 
-      {/* Natural Falling Leaves */}
+      {/* Natural Falling Leaves Across Entire Screen */}
+      {[...Array(28)].map((_, i) => {
 
-{[...Array(8)].map((_, index) => {
-  const startX = Math.random() * 1200;
+        const startX =
+          Math.random() * (window.innerWidth + 400) - 200;
 
-  return (
-    <motion.div
-      key={index}
-      initial={{
-        x: startX,
-        y: -150,
-        rotate: Math.random() * 360,
-      }}
-      animate={{
-        y: ["-10vh", "120vh"],
-        x: [
-          startX,
-          startX + 40,
-          startX - 30,
-          startX + 50,
-          startX,
-        ],
-        rotate: [
-          0,
-          45,
-          -45,
-          20,
-          0,
-        ],
-      }}
-      transition={{
-        duration: 18 + Math.random() * 8,
-        repeat: Infinity,
-        ease: "linear",
-        delay: Math.random() * 12,
-      }}
-      className="absolute z-0 pointer-events-none text-3xl md:text-5xl"
-      style={{
-        opacity: 0.25,
-      }}
-    >
-      🍃
-    </motion.div>
-  );
-})}
-      {/* Main Section */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
+        return (
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 40,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          className="w-full max-w-6xl overflow-hidden rounded-[36px] bg-white/60 backdrop-blur-2xl border border-white/50 shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
-        >
+          <motion.div
+            key={i}
+            initial={{
+              x: startX,
+              y: -400,
+              rotate: Math.random() * 360,
+              opacity: 0,
+            }}
+            animate={{
+              y: window.innerHeight + 400,
+              x: [
+                startX,
+                startX + 80,
+                startX - 60,
+                startX + 100,
+                startX - 40,
+              ],
+              rotate: [
+                0,
+                90,
+                -90,
+                45,
+                0,
+              ],
+              opacity: [0, 0.15, 0.25, 0.2, 0],
+            }}
+            transition={{
+              duration: 14 + Math.random() * 12,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 18,
+            }}
+            className="absolute z-0 pointer-events-none text-3xl md:text-4xl"
+          >
+            {leaves[i % leaves.length]}
+          </motion.div>
 
-          <div className="grid md:grid-cols-2">
+        );
+      })}
 
-            {/* Left Side */}
-            <div className="p-14 flex flex-col justify-center">
+      {/* Main Glass Card */}
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 30,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className={`relative z-10 w-full max-w-6xl grid lg:grid-cols-2 rounded-[40px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.15)] border backdrop-blur-2xl transition-all duration-700 ${
+          darkMode
+            ? "bg-white/5 border-white/10"
+            : "bg-white/40 border-white/40"
+        }`}
+      >
 
-              <motion.h1
-                initial={{
-                  opacity: 0,
-                  x: -30,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                transition={{
-                  delay: 0.2,
-                }}
-                className="text-7xl font-black tracking-wide text-slate-800"
+        {/* Left Side */}
+        <div className="relative hidden lg:flex flex-col justify-center p-16">
+
+          {/* Giant Text Background */}
+          <h1
+            className={`absolute text-[180px] font-black top-16 left-[-10px] select-none whitespace-nowrap ${
+              darkMode
+                ? "text-white/[0.025]"
+                : "text-black/[0.025]"
+            }`}
+          >
+            INDIA
+          </h1>
+
+          <div className="relative z-10">
+
+            <div
+              className={`inline-block px-5 py-2 rounded-full backdrop-blur-xl border text-sm tracking-[4px] font-semibold ${
+                darkMode
+                  ? "bg-white/10 border-white/10 text-orange-300"
+                  : "bg-white/70 border-white/40 text-orange-500"
+              }`}
+            >
+              INCREDIBLE INDIA
+            </div>
+
+            <h1
+              className={`mt-8 text-8xl font-black leading-[0.9] ${
+                darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
+            >
+              VISTARA
+            </h1>
+
+            <div className="mt-4 h-[4px] w-32 rounded-full bg-gradient-to-r from-orange-500 to-emerald-500" />
+
+            <p
+              className={`mt-8 text-2xl leading-relaxed max-w-xl ${
+                darkMode
+                  ? "text-slate-300"
+                  : "text-slate-600"
+              }`}
+            >
+              A cinematic gateway to India’s culture,
+              heritage, hidden gems, and breathtaking journeys.
+            </p>
+
+            {/* Feature Pills */}
+            <div className="mt-10 flex flex-wrap gap-4">
+
+              <div
+                className={`px-5 py-3 rounded-2xl backdrop-blur-xl shadow-lg ${
+                  darkMode
+                    ? "bg-white/10 text-white"
+                    : "bg-white/70 text-slate-800"
+                }`}
               >
-                VISTARA
-              </motion.h1>
+                🏛 Heritage
+              </div>
 
-              <div className="mt-4 h-[2px] w-32 bg-yellow-500 rounded-full" />
+              <div
+                className={`px-5 py-3 rounded-2xl backdrop-blur-xl shadow-lg ${
+                  darkMode
+                    ? "bg-white/10 text-white"
+                    : "bg-white/70 text-slate-800"
+                }`}
+              >
+                🌿 Nature
+              </div>
 
-              <p className="mt-6 text-2xl font-medium text-slate-700">
-                India's Digital Tourism Atlas
-              </p>
-
-              <p className="mt-4 text-slate-600 leading-relaxed text-lg">
-                Discover destinations, cultural heritage,
-                hidden gems, and unforgettable journeys
-                through a unified tourism experience.
-              </p>
-
-              <div className="mt-10 space-y-4">
-
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-orange-500" />
-                  <span className="text-slate-700">
-                    Curated Heritage Experiences
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                  <span className="text-slate-700">
-                    Authentic Cultural Narratives
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span className="text-slate-700">
-                    Iconic Landmarks & Hidden Gems
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-sky-500" />
-                  <span className="text-slate-700">
-                    Trusted Travel Knowledge
-                  </span>
-                </div>
-
+              <div
+                className={`px-5 py-3 rounded-2xl backdrop-blur-xl shadow-lg ${
+                  darkMode
+                    ? "bg-white/10 text-white"
+                    : "bg-white/70 text-slate-800"
+                }`}
+              >
+                🛕 Spiritual
               </div>
 
             </div>
 
-            {/* Right Side */}
-            <div className="p-14 bg-white/30">
+          </div>
 
-              <h2 className="text-4xl font-bold text-slate-800">
-                Sign In to Vistara
-              </h2>
+        </div>
 
-              <p className="mt-3 text-slate-600">
-                Access India's most comprehensive tourism
-                knowledge platform.
-              </p>
+        {/* Right Side */}
+        <div
+          className={`relative p-10 md:p-16 backdrop-blur-2xl transition-all duration-700 ${
+            darkMode
+              ? "bg-white/5"
+              : "bg-white/30"
+          }`}
+        >
 
-              <form className="mt-10 space-y-5">
+          {/* Floating Gradient */}
+          <div
+            className={`absolute top-0 right-0 w-[300px] h-[300px] blur-3xl rounded-full ${
+              darkMode
+                ? "bg-orange-500/10"
+                : "bg-orange-200/30"
+            }`}
+          />
 
-                <div>
-                  <label className="block mb-2 text-slate-700 font-medium">
-                    Email Address
-                  </label>
+          <div className="relative z-10">
 
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-orange-400"
-                  />
-                </div>
+            <div className="flex items-center justify-between">
 
-                <div>
-                  <label className="block mb-2 text-slate-700 font-medium">
-                    Password
-                  </label>
+              <div>
 
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    className="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-orange-400"
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  className="w-full rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-emerald-500 py-4 text-white font-semibold shadow-lg hover:scale-[1.02] transition-all duration-300"
+                <h2
+                  className={`text-5xl font-black ${
+                    darkMode
+                      ? "text-white"
+                      : "text-slate-900"
+                  }`}
                 >
-                  Continue Journey
-                </button>
 
-              </form>
+                  {isSignup
+                    ? "Create Account"
+                    : "Welcome"}
+
+                </h2>
+
+                <p
+                  className={`mt-3 text-lg ${
+                    darkMode
+                      ? "text-slate-300"
+                      : "text-slate-600"
+                  }`}
+                >
+
+                  {isSignup
+                    ? "Begin your journey through India."
+                    : "Continue your journey through India."}
+
+                </p>
+
+              </div>
+
+              <div className="w-16 h-16 rounded-3xl bg-gradient-to-r from-orange-500 to-emerald-500 flex items-center justify-center text-3xl shadow-xl">
+                🇮🇳
+              </div>
+
+            </div>
+
+            {successMessage && (
+
+              <div className="mt-8 rounded-2xl bg-emerald-100 border border-emerald-300 px-5 py-4 text-emerald-700">
+                {successMessage}
+              </div>
+
+            )}
+
+            {errors.general && (
+
+              <div className="mt-8 rounded-2xl bg-red-100 border border-red-300 px-5 py-4 text-red-700">
+                {errors.general}
+              </div>
+
+            )}
+
+            {/* Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="mt-10 space-y-6"
+            >
+
+              {isSignup && (
+
+                <div>
+
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={`w-full px-6 py-5 rounded-3xl backdrop-blur-xl border outline-none shadow-md transition-all ${
+                      darkMode
+                        ? "bg-white/10 border-white/10 text-white placeholder:text-slate-400"
+                        : "bg-white/70 border-white/50 text-slate-800"
+                    }`}
+                  />
+
+                </div>
+
+              )}
+
+              {/* Email */}
+              <div>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-6 py-5 rounded-3xl backdrop-blur-xl border outline-none shadow-md transition-all ${
+                    darkMode
+                      ? "bg-white/10 border-white/10 text-white placeholder:text-slate-400"
+                      : "bg-white/70 border-white/50 text-slate-800"
+                  }`}
+                />
+
+                {errors.email && (
+
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.email}
+                  </p>
+
+                )}
+
+              </div>
+
+              {/* Password */}
+              <div>
+
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={`w-full px-6 py-5 rounded-3xl backdrop-blur-xl border outline-none shadow-md transition-all ${
+                    darkMode
+                      ? "bg-white/10 border-white/10 text-white placeholder:text-slate-400"
+                      : "bg-white/70 border-white/50 text-slate-800"
+                  }`}
+                />
+
+                {errors.password && (
+
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.password}
+                  </p>
+
+                )}
+
+              </div>
+
+              {/* Button */}
+              <button
+                type="submit"
+                className="w-full py-5 rounded-3xl bg-gradient-to-r from-orange-500 via-yellow-500 to-emerald-500 text-white text-lg font-bold shadow-[0_20px_40px_rgba(251,146,60,0.35)] hover:scale-[1.02] transition-all duration-300"
+              >
+
+                {isSignup
+                  ? "Create Account"
+                  : "Continue Journey"}
+
+              </button>
+
+            </form>
+
+            {/* Bottom */}
+            <div
+              className={`mt-8 flex flex-col gap-4 ${
+                darkMode
+                  ? "text-slate-300"
+                  : "text-slate-600"
+              }`}
+            >
+
+              <button
+                onClick={() =>
+                  setIsSignup(!isSignup)
+                }
+                className="hover:text-orange-500 transition text-left"
+              >
+
+                {isSignup
+                  ? "Already have an account? Login"
+                  : "New to Vistara? Create Account"}
+
+              </button>
 
               <button
                 onClick={toggleMusic}
-                className="mt-6 rounded-xl border border-slate-300 bg-white/50 px-5 py-3 text-slate-700 hover:bg-white/70 transition"
+                className="hover:text-orange-500 transition text-left"
               >
+
                 {playing
                   ? "Disable Ambient Audio"
                   : "Enable Ambient Audio"}
+
               </button>
 
             </div>
 
           </div>
 
-        </motion.div>
+        </div>
 
-      </div>
+      </motion.div>
 
     </div>
+
   );
 }
