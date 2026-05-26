@@ -1,18 +1,135 @@
-# React + Vite
+# 🎨 Vistara Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend of Vistara delivers a cinematic tourism exploration experience through immersive UI design, smooth animations, responsive layouts, and interactive discovery systems.
 
-Currently, two official plugins are available:
+Built using React, Tailwind CSS, and Framer Motion, the frontend focuses on blending modern web aesthetics with India's cultural richness.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+# ✨ Frontend Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🌍 Tourism Discovery
+- Explore Indian states & union territories
+- Dynamic tourism pages
+- Tourism category filtering
+- Smart search functionality
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🎨 Premium UI/UX
+- Glassmorphism design
+- Dark / Light mode
+- Responsive layouts
+- Smooth transitions & animations
+- Cinematic hero sections
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🍃 Immersive Effects
+- Falling leaf animations
+- Ambient flute audio
+- Persistent audio across pages
+
+---
+
+## 🔐 Authentication Pages
+- Signup
+- Login
+- Error handling
+- Validation system
+
+---
+
+## 🛠️ Admin Dashboard
+- Add tourism states
+- Delete tourism states
+- MongoDB integration support
+
+---
+
+# ⚙️ Tech Stack
+
+- React.js
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Axios
+- React Router DOM
+
+---
+
+# 📂 Frontend Structure
+
+```bash
+frontend/
+│
+├── public/
+├── src/
+│   ├── assets/
+│   ├── data/
+│   ├── pages/
+│   ├── components/
+│   └── ...
+│
+├── package.json
+└── vite.config.js
+```
+
+---
+
+# 🚀 Frontend Setup
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Run Development Server
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```bash
+http://localhost:5173
+```
+
+---
+
+# ✨ Main Pages
+
+| Page | Description |
+|---|---|
+| Login | User authentication |
+| Dashboard | Tourism discovery |
+| StatePage | Cinematic tourism details |
+| Admin | Tourism content management |
+
+---
+
+# 🌟 UI Highlights
+
+- Cinematic tourism visuals
+- Immersive travel experience
+- Premium responsive layouts
+- Dynamic search & filtering
+- Persistent ambient audio
+
+---
+
+# 📸 Future Enhancements
+
+- Interactive India map
+- AI-based recommendations
+- Advanced tourism analytics
+- Personalized itineraries
+
+---
+
+# 🇮🇳 Vistara Frontend
+### *Explore India. Experience Infinity.*
