@@ -4,7 +4,7 @@ const API = "http://localhost:5000/api/auth";
 
 export const registerUser = async (userData) => {
   const response = await axios.post(
-    `${API}/register`,
+    `${API}/signup`,
     userData
   );
 
